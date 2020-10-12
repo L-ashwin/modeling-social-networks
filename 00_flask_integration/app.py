@@ -9,13 +9,13 @@ app = Flask(__name__)
 #########################################################################
 # Random Graph Models
 
-n, p = 100, 0.05
-G = nx.erdos_renyi_graph(n, p, seed=1)
+# n, p = 100, 0.05
+# G = nx.erdos_renyi_graph(n, p, seed=1)
 
-nodes = G.nodes()
-bias  = np.random.choice((1,-1), size=len(nodes))
+# nodes = G.nodes()
+# bias  = np.random.choice((1,-1), size=len(nodes))
 
-nx.set_node_attributes(G, {key:value for key, value in zip(nodes, bias)}, name='bias')
+# nx.set_node_attributes(G, {key:value for key, value in zip(nodes, bias)}, name='bias')
 
 #########################################################################
 # One tick 
@@ -34,34 +34,71 @@ def step(G, attr):
 #########################################################################
 # Preapre the data
 
-def return_lists():
+def return_lists(G):
     nodes_list = list(G.nodes)
     edges_list = list(G.edges)
     bias_list = []
+    polarization_index = polarization_idx(G, 'bias')
 
     for i in range(len(G.nodes)):
         bias_list.append( int(G.nodes[i]['bias']) )
     
-    return nodes_list, edges_list, bias_list
+    return nodes_list, edges_list, bias_list, polarization_index
+
+#########################################################################
+# Polarization Index
+
+def polarization_idx(G, attr):
+    val = [*nx.get_node_attributes(G, attr).values()]
+    n_  = sum([ele == -1 for ele in val])/len(val)
+    idx = 1 - 4*(n_ - 0.5)**2
+    return idx
 
 #########################################################################
 # Store data for every tick
 
-data = {}
-for i in range(100):
-    step(G, 'bias')
-    nodes_list, edges_list, bias_list = return_lists()
+# data = {}
+# for i in range(100):
+#     step(G, 'bias')
+#     nodes_list, edges_list, bias_list = return_lists()
     
-    data[i] = {}
-    data[i]['nodes'] = nodes_list
-    data[i]['edges'] = edges_list
-    data[i]['bias'] = bias_list
+#     data[i] = {}
+#     data[i]['nodes'] = nodes_list
+#     data[i]['edges'] = edges_list
+#     data[i]['bias'] = bias_list
+
+#########################################################################
+# Simulation
+
+def simulate():
+    n, p = 300, 0.02
+    G = nx.erdos_renyi_graph(n, p, seed=1)
+
+    nodes = G.nodes()
+    bias  = np.random.choice((1,-1), size=len(nodes))
+
+    nx.set_node_attributes(G, {key:value for key, value in zip(nodes, bias)}, name='bias')
+
+    data = {}
+    for i in range(100):
+        step(G, 'bias')
+        nodes_list, edges_list, bias_list, polarization_index = return_lists(G)
+        
+        data[i] = {}
+        data[i]['nodes'] = nodes_list
+        data[i]['edges'] = edges_list
+        data[i]['bias'] = bias_list
+        data[i]['polarization_index'] = polarization_index
+
+    return data
 
 #########################################################################
 # Root
 
 @app.route('/')
 def index():
+
+    data = simulate()
 
     return render_template(
         'index.html',

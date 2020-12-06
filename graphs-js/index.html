@@ -1,0 +1,57 @@
+<html lang="en">
+<head>
+  <title>Graphs</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0"/>
+</head>
+
+<script src="./libraries/d3.v6.min.js"></script>
+<script src="./libraries/d3-selection-multi.v1.min.js"></script>
+<script src="./libraries/jquery-3.4.0.min.js"></script>
+<script src="./libraries/math.min.js"></script>
+<script src="./libraries/underscore-min.js"></script>
+<script src="./libraries/bootstrap.bundle.min.js"></script>
+
+<link rel="stylesheet" href="./libraries/bootstrap.min.css">
+<link rel="stylesheet" href="./style.css">
+
+<body style="background: lightgrey;">
+    <div class="fluid-container">
+        <div id="controls" class="mt-3 mb-4">
+            <!-- Experiment Parameters: -->
+
+            <select name="A" id="A-dropdown">
+                <option value=6>Extreme Polarization</option>
+                <option value=1>Very High Polarization</option>
+                <option value=5>High Polarization</option>
+            </select>
+
+            <select name="B" id="B-dropdown">
+                <option value=1>Erdos Renyi Graph</option>
+                <option value=2>Preferential Attachment Graph</option>
+                <option value=3>Facebook Graph</option>
+                <option value=4>US Blogs Graph</option>
+            </select>
+    
+            <select name="C" id="C-dropdown">
+                <option value=1>Large Update Size</option>
+                <option value=3>Small Update Size</option>
+            </select>
+
+            <select name="D" id="D-dropdown">
+                <option value=1>Intolerant Individuals</option>
+            </select>
+
+            <select name="E" id="E-dropdown">
+                <option value=1>Uniform Initial Distribution</option>
+                <option value=3>Gaussian Initial Distribution</option>
+            </select>
+        </div>
+
+        <div id='description' style="display: none;"></div>
+
+        <div id="images"></div>
+    </div>
+</body>
+
+<script src="./index.js"></script>

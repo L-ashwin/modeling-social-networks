@@ -1,0 +1,104 @@
+<html lang="en">
+<head>
+  <title>Polarization in Social Networks</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0"/>
+</head>
+
+<script src="./libraries/d3.v6.min.js"></script>
+<script src="./libraries/d3-selection-multi.v1.min.js"></script>
+<script src="./libraries/jquery-3.4.0.min.js"></script>
+<script src="./libraries/math.min.js"></script>
+<script src="./libraries/underscore-min.js"></script>
+<script src="./libraries/bootstrap.bundle.min.js"></script>
+
+<link rel="stylesheet" href="./libraries/bootstrap.min.css">
+
+<body>
+    <div class="container-fluid">
+        <h3 class="my-3" style="text-align: center; color: gray;">Polarization in Social Networks</h3>
+        <div class="row">
+            <div id='left-pane' class="col-md-9">
+
+                <div class="card">
+                    <div id='news_count' class="card-header text-center"></div>
+                    <div class="card-body p-0 text-center">
+                        <div id='canvas-div'> <svg id='canvas'></svg> </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div id='right-pane' class="col-md-3 text-center">
+
+                <div class="card">
+                    <div class="card-header">Controls</div>
+                    <div class="card-body">
+
+                        <div style="color: gray;">Which Random Graph Model to use?</div>
+                        <div class='pt-2'>
+                            <select name="graph" id="graph">
+                                <option value="ER">Erdos-Renyi</option>
+                                <option value="barabasi">Preferential Attachment</option>
+                            </select>
+                        </div>
+
+                        <hr>
+        
+                        <div style="color: gray;">Which level of news polarization?</div>
+                        <div class='pt-2'>
+                            <select name="news" id="news">
+                                <option value="high">High</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+
+                        <hr>
+        
+                        <div style="color: gray;">Which level of tolerance in individuals?</div>
+                        <div class='pt-2'>
+                            <select name="tolerance" id="tolerance">
+                                <option value="low">Low</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+
+                        <hr>
+        
+                        <div style="color: gray;">Want to see detailed news propagation?</div>
+                        <div class='pt-2'>
+                            <select name="animation" id="animation">
+                                <option value="false">No</option>
+                                <option value="true">Yes</option>
+                            </select>
+                        </div>
+
+                        <hr>
+        
+                        <!-- <div style="color: gray;">How often should the display update?</div>
+                        <div class='pt-2'>
+                            <select name="speed" id="speed">
+                                <option value="slow">After every news propagation</option>
+                                <option value="fast">After 10 news propagations</option>
+                            </select>
+                        </div>
+
+                        <hr> -->
+        
+                        <div>
+                            <button id='start'>Start</button>
+                            <button id='pause'>Pause</button>
+                            <button id='reset'>Reset</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script src="./murata.js"></script>
+<script src="./forceGraph.js"></script>
+<script src="./display.js"></script>
+<script src="./index.js"></script>
